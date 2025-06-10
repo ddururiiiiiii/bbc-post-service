@@ -1,7 +1,5 @@
 package com.bookbookclub.bbc_post_service.like.exception;
 
-
-import com.bookbookclub.bbc_post_service.global.exception.ErrorCode;
 import lombok.Getter;
 
 /**
@@ -10,9 +8,9 @@ import lombok.Getter;
 @Getter
 public class LikeException extends RuntimeException {
 
-    private final ErrorCode errorCode;
+    private final LikeErrorCode errorCode;
 
-    public LikeException(ErrorCode errorCode) {
+    public LikeException(LikeErrorCode errorCode) {
         super(errorCode.getMessage());
         this.errorCode = errorCode;
     }

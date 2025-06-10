@@ -1,10 +1,10 @@
 package com.bookbookclub.bbc_post_service.like.controller;
 
 
-import com.bookbookclub.bbc_post_service.global.common.ApiResponse;
 import com.bookbookclub.bbc_post_service.global.security.CustomUserDetails;
-import com.bookbookclub.bbc_post_service.like.dto.UserSummaryResponse;
+import com.bookbookclub.common.dto.UserSummaryResponse;
 import com.bookbookclub.bbc_post_service.like.service.LikeService;
+import com.bookbookclub.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -2,7 +2,7 @@ package com.bookbookclub.bbc_post_service.feed.dto;
 
 import com.bookbookclub.bbc_post_service.book.entity.Book;
 import com.bookbookclub.bbc_post_service.feed.entity.Feed;
-import com.bookbookclub.bbc_post_service.like.dto.UserSummaryResponse;
+import com.bookbookclub.common.dto.UserSummaryResponse;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

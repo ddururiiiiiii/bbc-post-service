@@ -14,7 +14,7 @@ import com.bookbookclub.bbc_post_service.feed.exception.FeedNotFoundException;
 import com.bookbookclub.bbc_post_service.feed.repository.FeedRepository;
 import com.bookbookclub.bbc_post_service.global.client.UserClient;
 import com.bookbookclub.bbc_post_service.global.security.CustomUserDetails;
-import com.bookbookclub.bbc_post_service.like.dto.UserSummaryResponse;
+import com.bookbookclub.common.dto.UserSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

@@ -4,8 +4,8 @@ package com.bookbookclub.bbc_post_service.like.service;
 import com.bookbookclub.bbc_post_service.feed.entity.Feed;
 import com.bookbookclub.bbc_post_service.feed.repository.FeedRepository;
 import com.bookbookclub.bbc_post_service.feed.service.RankingFeedService;
-import com.bookbookclub.bbc_post_service.global.exception.ErrorCode;
-import com.bookbookclub.bbc_post_service.like.dto.UserSummaryResponse;
+import com.bookbookclub.bbc_post_service.like.exception.LikeErrorCode;
+import com.bookbookclub.common.dto.UserSummaryResponse;
 import com.bookbookclub.bbc_post_service.like.entity.Like;
 import com.bookbookclub.bbc_post_service.like.exception.LikeException;
 import com.bookbookclub.bbc_post_service.like.repository.LikeRepository;
@@ -40,7 +40,7 @@ public class LikeService {
     @Transactional
     public boolean toggleLike(Long userId, Long feedId) {
         Feed feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> new LikeException(ErrorCode.FEED_NOT_FOUND));
+                .orElseThrow(() -> new LikeException(LikeErrorCode.LIKE_NOT_FOUND));
 
         return likeRepository.findByUserIdAndFeedId(userId, feedId)
                 .map(existingLike -> {
@@ -62,11 +62,11 @@ public class LikeService {
     @Transactional
     public void likeFeed(Long userId, Long feedId) {
         if (likeRepository.existsByUserIdAndFeedId(userId, feedId)) {
-            throw new LikeException(ErrorCode.ALREADY_LIKED);
+            throw new LikeException(LikeErrorCode.ALREADY_LIKED);
         }
 
         Feed feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> new LikeException(ErrorCode.FEED_NOT_FOUND));
+                .orElseThrow(() -> new LikeException(LikeErrorCode.LIKE_NOT_FOUND));
 
         likeRepository.save(Like.create(userId, feed));
     }
@@ -77,7 +77,7 @@ public class LikeService {
     @Transactional
     public void unlikeFeed(Long userId, Long feedId) {
         Like like = likeRepository.findByUserIdAndFeedId(userId, feedId)
-                .orElseThrow(() -> new LikeException(ErrorCode.LIKE_NOT_FOUND));
+                .orElseThrow(() -> new LikeException(LikeErrorCode.LIKE_NOT_FOUND));
 
         likeRepository.delete(like);
     }

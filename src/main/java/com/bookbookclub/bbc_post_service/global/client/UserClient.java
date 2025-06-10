@@ -1,6 +1,6 @@
 package com.bookbookclub.bbc_post_service.global.client;
 
-import com.bookbookclub.bbc_post_service.like.dto.UserSummaryResponse;
+import com.bookbookclub.common.dto.UserSummaryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

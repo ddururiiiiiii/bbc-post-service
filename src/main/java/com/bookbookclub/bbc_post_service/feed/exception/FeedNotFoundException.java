@@ -1,7 +1,6 @@
 package com.bookbookclub.bbc_post_service.feed.exception;
 
 
-import com.bookbookclub.bbc_post_service.global.exception.ErrorCode;
 import lombok.Getter;
 
 /**
@@ -9,10 +8,10 @@ import lombok.Getter;
  */
 @Getter
 public class FeedNotFoundException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final FeedErrorCode errorCode;
 
     public FeedNotFoundException() {
-        super(ErrorCode.FEED_NOT_FOUND.getMessage());
-        this.errorCode = ErrorCode.FEED_NOT_FOUND;
+        super(FeedErrorCode.FEED_NOT_FOUND.getMessage());
+        this.errorCode = FeedErrorCode.FEED_NOT_FOUND;
     }
 }

@@ -1,7 +1,6 @@
 package com.bookbookclub.bbc_post_service.book.exception;
 
 
-import com.bookbookclub.bbc_post_service.global.exception.ErrorCode;
 import lombok.Getter;
 
 /**
@@ -10,10 +9,10 @@ import lombok.Getter;
  */
 @Getter
 public class DuplicateIsbnException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final BookErrorCode errorCode;
 
     public DuplicateIsbnException() {
-        super(ErrorCode.DUPLICATE_ISBN.getMessage());
-        this.errorCode = ErrorCode.DUPLICATE_ISBN;
+        super(BookErrorCode.DUPLICATE_ISBN.getMessage());
+        this.errorCode = BookErrorCode.DUPLICATE_ISBN;
     }
 }
