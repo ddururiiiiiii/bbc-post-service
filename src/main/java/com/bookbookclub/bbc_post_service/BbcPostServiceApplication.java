@@ -2,6 +2,7 @@ package com.bookbookclub.bbc_post_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
@@ -9,7 +10,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class BbcPostServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BbcPostServiceApplication.class, args);
+		new SpringApplicationBuilder(BbcPostServiceApplication.class)
+				.properties("spring.config.name=application-post")
+				.run(args);
 	}
 
 }
