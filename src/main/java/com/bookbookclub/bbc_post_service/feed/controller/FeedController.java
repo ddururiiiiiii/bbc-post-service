@@ -49,8 +49,7 @@ public class FeedController {
     @GetMapping("/{feedId}")
     public ApiResponse<FeedResponse> getFeed(
             @PathVariable Long feedId,
-            @AuthenticationPrincipal CustomUserDetails userDetails
-    ) {
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
         return ApiResponse.success(feedService.getFeed(feedId));
     }
 

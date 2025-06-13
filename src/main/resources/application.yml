@@ -30,6 +30,7 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
+    feign: DEBUG
 
 springdoc:
   api-docs:
@@ -42,3 +43,13 @@ jwt:
 
 bbc-user-service:
   url: http://localhost:8081  # 실제 유저 서비스 포트
+
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: post-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+

@@ -4,6 +4,7 @@ package com.bookbookclub.bbc_post_service.like.service;
 import com.bookbookclub.bbc_post_service.feed.entity.Feed;
 import com.bookbookclub.bbc_post_service.feed.repository.FeedRepository;
 import com.bookbookclub.bbc_post_service.feed.service.RankingFeedService;
+import com.bookbookclub.bbc_post_service.global.kafka.PostEventProducer;
 import com.bookbookclub.bbc_post_service.like.exception.LikeErrorCode;
 import com.bookbookclub.common.dto.UserSummaryResponse;
 import com.bookbookclub.bbc_post_service.like.entity.Like;
@@ -27,6 +28,7 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final FeedRepository feedRepository;
     private final RankingFeedService rankingFeedService;
+    private final PostEventProducer postEventProducer;
 
     /**
      * 좋아요 토글 기능
@@ -51,35 +53,10 @@ public class LikeService {
                 .orElseGet(() -> {
                     likeRepository.save(Like.create(userId, feed));  // userId만 전달
                     rankingFeedService.incrementLike("weekly", feedId, 1);
+
+                    postEventProducer.sendLikeEvent(feedId, userId);
                     return true;
                 });
-    }
-
-    /**
-     * 피드 좋아요 (단건)
-     * - 중복 방지 확인 포함
-     */
-    @Transactional
-    public void likeFeed(Long userId, Long feedId) {
-        if (likeRepository.existsByUserIdAndFeedId(userId, feedId)) {
-            throw new LikeException(LikeErrorCode.ALREADY_LIKED);
-        }
-
-        Feed feed = feedRepository.findById(feedId)
-                .orElseThrow(() -> new LikeException(LikeErrorCode.LIKE_NOT_FOUND));
-
-        likeRepository.save(Like.create(userId, feed));
-    }
-
-    /**
-     * 피드 좋아요 취소 (단건)
-     */
-    @Transactional
-    public void unlikeFeed(Long userId, Long feedId) {
-        Like like = likeRepository.findByUserIdAndFeedId(userId, feedId)
-                .orElseThrow(() -> new LikeException(LikeErrorCode.LIKE_NOT_FOUND));
-
-        likeRepository.delete(like);
     }
 
     /**

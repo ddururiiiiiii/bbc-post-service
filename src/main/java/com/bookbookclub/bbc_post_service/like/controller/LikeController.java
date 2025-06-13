@@ -30,8 +30,8 @@ public class LikeController {
             @PathVariable Long feedId,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        likeService.likeFeed(feedId, userDetails.getUserId());
-        return ResponseEntity.ok(ApiResponse.success(null, "좋아요 토글 완료"));
+        likeService.toggleLike(feedId, userDetails.getUserId());
+        return ResponseEntity.ok(ApiResponse.success(null));
     }
 
     /**
@@ -40,7 +40,7 @@ public class LikeController {
     @GetMapping("/count")
     public ResponseEntity<ApiResponse<Long>> getLikeCount(@PathVariable Long feedId) {
         Long likeCount = likeService.getLikeCount(feedId);
-        return ResponseEntity.ok(ApiResponse.success(likeCount, "좋아요 수 조회 완료"));
+        return ResponseEntity.ok(ApiResponse.success(likeCount));
     }
 
     /**
@@ -51,7 +51,7 @@ public class LikeController {
             @PathVariable Long feedId
     ) {
         List<UserSummaryResponse> users = likeService.getUsersWhoLikedFeed(feedId);
-        return ResponseEntity.ok(ApiResponse.success(users, "좋아요한 유저 리스트 조회 완료"));
+        return ResponseEntity.ok(ApiResponse.success(users));
     }
 
 }

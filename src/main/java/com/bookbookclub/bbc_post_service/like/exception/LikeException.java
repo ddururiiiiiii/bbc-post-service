@@ -1,17 +1,12 @@
 package com.bookbookclub.bbc_post_service.like.exception;
 
-import lombok.Getter;
+import com.bookbookclub.common.exception.BusinessException;
 
 /**
- * 좋아요 관련 비즈니스 예외
+ * 좋아요 도메인에서 발생하는 비즈니스 예외
  */
-@Getter
-public class LikeException extends RuntimeException {
-
-    private final LikeErrorCode errorCode;
-
+public class LikeException extends BusinessException {
     public LikeException(LikeErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+        super(errorCode);
     }
 }

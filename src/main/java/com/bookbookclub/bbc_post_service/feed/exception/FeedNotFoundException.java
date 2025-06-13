@@ -1,17 +1,12 @@
 package com.bookbookclub.bbc_post_service.feed.exception;
 
-
-import lombok.Getter;
+import com.bookbookclub.common.exception.BusinessException;
 
 /**
- * 존재하지 않는 피드에 접근할 때 발생
+ * 존재하지 않는 피드에 접근할 때 발생하는 예외
  */
-@Getter
-public class FeedNotFoundException extends RuntimeException {
-    private final FeedErrorCode errorCode;
-
+public class FeedNotFoundException extends BusinessException {
     public FeedNotFoundException() {
-        super(FeedErrorCode.FEED_NOT_FOUND.getMessage());
-        this.errorCode = FeedErrorCode.FEED_NOT_FOUND;
+        super(FeedErrorCode.FEED_NOT_FOUND);
     }
 }

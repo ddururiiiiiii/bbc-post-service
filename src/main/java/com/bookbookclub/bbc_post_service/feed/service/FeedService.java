@@ -1,7 +1,7 @@
 package com.bookbookclub.bbc_post_service.feed.service;
 
-import com.bookbookclub.bbc_post_service.book.dto.BookRequest;
 import com.bookbookclub.bbc_post_service.book.entity.Book;
+import com.bookbookclub.bbc_post_service.book.exception.BookNotFoundException;
 import com.bookbookclub.bbc_post_service.book.repository.BookRepository;
 import com.bookbookclub.bbc_post_service.book.service.BookService;
 import com.bookbookclub.bbc_post_service.feed.dto.FeedRequest;
@@ -16,16 +16,16 @@ import com.bookbookclub.bbc_post_service.global.client.UserClient;
 import com.bookbookclub.bbc_post_service.global.security.CustomUserDetails;
 import com.bookbookclub.common.dto.UserSummaryResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -35,6 +35,7 @@ public class FeedService {
     private final BookRepository bookRepository;
     private final UserClient userClient;
     private final BookService bookService;
+
 
     @Transactional
     public FeedSimpleResponse createFeed(FeedRequest request, CustomUserDetails userDetails) {
@@ -81,6 +82,7 @@ public class FeedService {
         }
         Book book = getBookOrThrow(feed.getBookId());
         UserSummaryResponse writer = userClient.getUserById(feed.getUserId());
+
         return new FeedResponse(feed, book, writer, 0, false);
     }
 
@@ -97,8 +99,8 @@ public class FeedService {
                 .collect(Collectors.toMap(Book::getId, b -> b));
 
         // User 정보 조회 (외부 API)
-        List<UserSummaryResponse> userList = userClient.getUsersByIds(List.copyOf(userIds));
-        Map<Long, UserSummaryResponse> userMap = userList.stream()
+        List<UserSummaryResponse> userInfoList = userClient.getUsersByIds(new ArrayList<>(userIds)).getData();
+        Map<Long, UserSummaryResponse> userMap = userInfoList.stream()
                 .collect(Collectors.toMap(UserSummaryResponse::getId, u -> u));
 
         // 응답 변환
