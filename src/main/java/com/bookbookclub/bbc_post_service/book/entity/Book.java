@@ -1,6 +1,6 @@
 package com.bookbookclub.bbc_post_service.book.entity;
 
-import com.bookbookclub.bbc_post_service.book.dto.BookRequest;
+import com.bookbookclub.bbc_post_service.book.dto.BookCreateRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -37,7 +37,7 @@ public class Book {
     @Column(length = 1000)
     private String thumbnailUrl;
 
-    public static Book from(BookRequest request) {
+    public static Book from(BookCreateRequest request) {
         Book book = new Book();
         book.title = request.getTitle();
         book.author = request.getAuthor();

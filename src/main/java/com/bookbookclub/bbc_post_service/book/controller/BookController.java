@@ -1,7 +1,7 @@
 package com.bookbookclub.bbc_post_service.book.controller;
 
 
-import com.bookbookclub.bbc_post_service.book.dto.BookRequest;
+import com.bookbookclub.bbc_post_service.book.dto.BookCreateRequest;
 import com.bookbookclub.bbc_post_service.book.dto.BookResponse;
 import com.bookbookclub.bbc_post_service.book.dto.KakaoBookSearchResponse;
 import com.bookbookclub.bbc_post_service.book.entity.Book;
@@ -44,7 +44,7 @@ public class BookController {
      */
     @PostMapping
     public ResponseEntity<ApiResponse<BookResponse>> createBook(
-            @RequestBody @Valid BookRequest request
+            @RequestBody @Valid BookCreateRequest request
     ) {
         Book savedOrUpdated = bookService.saveOrUpdate(request);
         BookResponse response = BookResponse.from(savedOrUpdated);

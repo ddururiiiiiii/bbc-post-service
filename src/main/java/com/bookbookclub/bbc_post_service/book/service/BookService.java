@@ -1,18 +1,19 @@
 package com.bookbookclub.bbc_post_service.book.service;
 
 
-import com.bookbookclub.bbc_post_service.book.dto.BookRequest;
-import com.bookbookclub.bbc_post_service.book.dto.BookResponse;
+import com.bookbookclub.bbc_post_service.book.dto.BookCreateRequest;
 import com.bookbookclub.bbc_post_service.book.entity.Book;
-import com.bookbookclub.bbc_post_service.book.exception.DuplicateIsbnException;
+import com.bookbookclub.bbc_post_service.book.exception.BookException;
 import com.bookbookclub.bbc_post_service.book.repository.BookRepository;
-import com.bookbookclub.bbc_post_service.global.external.kakao.KakaoBookClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 책 관련 비즈니스 로직 처리
+ * 책 등록 또는 기존 책 정보 업데이트
+ *
+ * - 이미 등록된 ISBN인 경우: 책 정보 업데이트
+ * - 신규 ISBN인 경우: 새 책 등록
  */
 @Service
 @RequiredArgsConstructor
@@ -23,20 +24,24 @@ public class BookService {
 
     /**
      * 책 등록
-     * @param request 책 등록 요청 데이터
-     * @return 등록된 책 정보
+     * - ISBN 기준 책이 존재하면 정보 업데이트, 없으면 신규 등록
      */
-    public Book saveOrUpdate(BookRequest request) {
+    public Book saveOrUpdate(BookCreateRequest request) {
         return bookRepository.findByIsbn(request.getIsbn())
                 .map(book -> {
-                    // 정보 업데이트
                     book.updateInfo(request.getTitle(), request.getAuthor(), request.getPublisher(), request.getThumbnailUrl());
                     return book;
                 })
                 .orElseGet(() -> {
-                    // 신규 등록
-                    Book book = Book.from(request);
-                    return bookRepository.save(book);
+                    validateDuplicateIsbn(request.getIsbn());
+                    return bookRepository.save(Book.from(request));
                 });
+    }
+
+    //중복 ISBN 검사
+    private void validateDuplicateIsbn(String isbn) {
+        if (bookRepository.existsByIsbn(isbn)) {
+            throw new BookException(com.bookbookclub.common.exception.book.BookErrorCode.DUPLICATE_ISBN);
+        }
     }
 }

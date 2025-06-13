@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * 카카오 책 검색 API에서 개별 책 정보를 담는 DTO
+ */
 @Getter
 public class KakaoBookDocument {
     private String title;

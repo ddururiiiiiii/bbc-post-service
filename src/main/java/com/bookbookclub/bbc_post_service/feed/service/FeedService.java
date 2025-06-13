@@ -1,7 +1,6 @@
 package com.bookbookclub.bbc_post_service.feed.service;
 
 import com.bookbookclub.bbc_post_service.book.entity.Book;
-import com.bookbookclub.bbc_post_service.book.exception.BookNotFoundException;
 import com.bookbookclub.bbc_post_service.book.repository.BookRepository;
 import com.bookbookclub.bbc_post_service.book.service.BookService;
 import com.bookbookclub.bbc_post_service.feed.dto.FeedRequest;
