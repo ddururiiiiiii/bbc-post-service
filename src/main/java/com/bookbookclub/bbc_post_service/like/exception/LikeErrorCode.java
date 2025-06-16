@@ -1,10 +1,12 @@
 package com.bookbookclub.bbc_post_service.like.exception;
 
 import com.bookbookclub.common.exception.BaseErrorCode;
+import lombok.Getter;
 
 /**
  * 좋아요 도메인 에러 코드 정의
  */
+@Getter
 public enum LikeErrorCode implements BaseErrorCode {
 
     ALREADY_LIKED(400, "L001", "이미 좋아요를 눌렀습니다."),
@@ -18,20 +20,5 @@ public enum LikeErrorCode implements BaseErrorCode {
         this.statusCode = statusCode;
         this.code = code;
         this.message = message;
-    }
-
-    @Override
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    @Override
-    public String getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

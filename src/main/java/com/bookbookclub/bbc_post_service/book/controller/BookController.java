@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 책 관련 API 컨트롤러
- * - 등록
  */
 @RestController
 @RequestMapping("/api/books")
@@ -27,7 +26,6 @@ public class BookController {
 
     /**
      * 카카오 책 검색 API
-     * @param query 검색어
      */
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<KakaoBookSearchResponse>> searchBooksFromKakao(
@@ -39,8 +37,6 @@ public class BookController {
 
     /**
      * 책 등록 API
-     * @param request 책 등록 요청 데이터
-     * @return 등록된 책 정보
      */
     @PostMapping
     public ResponseEntity<ApiResponse<BookResponse>> createBook(

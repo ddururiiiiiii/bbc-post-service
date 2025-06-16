@@ -15,5 +15,7 @@ import java.util.Optional;
  */
 public interface FeedRepository extends JpaRepository<Feed, Long>, FeedRepositoryCustom {
 
+
+    /** 특정 상태(예: ACTIVE)인 피드를 ID로 조회*/
     Optional<Feed> findByIdAndStatus(Long id, FeedStatus status);
 }

@@ -13,16 +13,12 @@ import java.time.LocalDateTime;
 
 /**
  * 좋아요(Like) 엔티티
- * - 사용자가 특정 피드에 좋아요를 누른 기록을 저장
- * - 사용자(User)와 피드(Feed)와 다대일 관계
  */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "likes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "feed_id"})
-})
+@Table(name = "likes")
 public class Like {
 
     @Id
@@ -33,23 +29,22 @@ public class Like {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    /** 좋아요를 누른 피드 */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id", nullable = false)
-    private Feed feed;
+    /** 좋아요를 누른 피드 ID (연관관계 제거) */
+    @Column(name = "feed_id", nullable = false)
+    private Long feedId;
 
-    /** 좋아요 누른 시간 */
+    /** 생성 일시 */
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     /**
-     * 좋아요 생성 정적 메서드
+     * 정적 팩토리 메서드
      */
-    public static Like create(Long userId, Feed feed) {
+    public static Like of(Long userId, Long feedId) {
         Like like = new Like();
         like.userId = userId;
-        like.feed = feed;
+        like.feedId = feedId;
         return like;
     }
 }

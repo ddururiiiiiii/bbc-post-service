@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 피드 단건 및 목록 조회를 담당하는 서비스 (블라인드 제외 + 커서 기반)
+ * 피드 단건 및 목록 조회를 담당하는 서비스
  */
 @Service
 @RequiredArgsConstructor

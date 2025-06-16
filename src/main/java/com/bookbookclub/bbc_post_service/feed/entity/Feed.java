@@ -75,6 +75,7 @@ public class Feed {
     public boolean isActive() {
         return this.status == FeedStatus.ACTIVE;
     }
+
     /**
      * 피드 생성 메서드
      */

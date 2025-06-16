@@ -45,22 +45,6 @@ public class FeedCommandService {
     }
 
     /**
-     * 피드 블라인드 처리
-     * */
-    public void blindFeed(Long feedId) {
-        Feed feed = getFeedOrThrow(feedId);
-        feed.blind();
-    }
-
-    /**
-     * 피드 복구 처리
-     * */
-    public void activeFeed(Long feedId) {
-        Feed feed = getFeedOrThrow(feedId);
-        feed.isActive();
-    }
-
-    /**
      * 피드 ID로 조회 (없으면 예외)
      * */
     private Feed getFeedOrThrow(Long feedId) {

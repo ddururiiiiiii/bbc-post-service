@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
  */
 public record FeedUpdateRequest(
 
-        /** 수정할 피드 내용 */
         @NotBlank(message = "피드 내용은 공백일 수 없습니다.")
         @Size(max = 1000, message = "피드 내용은 1000자 이내여야 합니다.")
         String content

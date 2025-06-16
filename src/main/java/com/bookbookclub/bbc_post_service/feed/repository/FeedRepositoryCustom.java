@@ -11,7 +11,10 @@ import java.util.List;
  */
 public interface FeedRepositoryCustom {
 
+    /** 특정 유저의 피드 목록 (블라인드 제외, 최신순, 커서 기반) */
     List<Feed> findFeedsByUserIdAndCursorWithoutBlinded(Long lastFeedId, Long userId, int size);
+
+    /** 전체 피드 목록 (블라인드 제외, 최신순, 커서 기반) */
     List<Feed> findAllVisibleFeedsByCursor(Long lastFeedId, int size);
 
 }
