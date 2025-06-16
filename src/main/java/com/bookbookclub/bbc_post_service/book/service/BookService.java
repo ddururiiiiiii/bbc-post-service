@@ -3,6 +3,7 @@ package com.bookbookclub.bbc_post_service.book.service;
 
 import com.bookbookclub.bbc_post_service.book.dto.BookCreateRequest;
 import com.bookbookclub.bbc_post_service.book.entity.Book;
+import com.bookbookclub.bbc_post_service.book.exception.BookErrorCode;
 import com.bookbookclub.bbc_post_service.book.exception.BookException;
 import com.bookbookclub.bbc_post_service.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,13 @@ public class BookService {
      * - ISBN 기준 책이 존재하면 정보 업데이트, 없으면 신규 등록
      */
     public Book saveOrUpdate(BookCreateRequest request) {
-        return bookRepository.findByIsbn(request.getIsbn())
+        return bookRepository.findByIsbn(request.isbn())
                 .map(book -> {
-                    book.updateInfo(request.getTitle(), request.getAuthor(), request.getPublisher(), request.getThumbnailUrl());
+                    book.updateInfo(request.title(), request.author(), request.publisher(), request.thumbnailUrl());
                     return book;
                 })
                 .orElseGet(() -> {
-                    validateDuplicateIsbn(request.getIsbn());
+                    validateDuplicateIsbn(request.isbn());
                     return bookRepository.save(Book.from(request));
                 });
     }
@@ -41,7 +42,7 @@ public class BookService {
     //중복 ISBN 검사
     private void validateDuplicateIsbn(String isbn) {
         if (bookRepository.existsByIsbn(isbn)) {
-            throw new BookException(com.bookbookclub.common.exception.book.BookErrorCode.DUPLICATE_ISBN);
+            throw new BookException(BookErrorCode.DUPLICATE_ISBN);
         }
     }
 }

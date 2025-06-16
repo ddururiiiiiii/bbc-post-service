@@ -1,27 +1,32 @@
 package com.bookbookclub.bbc_post_service.book.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Size;
 
 /**
- * 책 등록 요청 DTO
+ * 도서 등록 요청 DTO
  */
-@Getter
-@NoArgsConstructor
-public class BookCreateRequest {
+public record BookCreateRequest(
 
-    @NotBlank(message = "제목은 비어 있을 수 없습니다.")
-    private String title;
+        /** ISBN (필수) */
+        @NotBlank(message = "ISBN은 필수입니다.")
+        String isbn,
 
-    @NotBlank(message = "작가는 비어 있을 수 없습니다.")
-    private String author;
+        /** 제목 (필수) */
+        @NotBlank(message = "제목은 필수입니다.")
+        @Size(max = 200, message = "제목은 200자 이내여야 합니다.")
+        String title,
 
-    @NotBlank(message = "출판사는 비어 있을 수 없습니다.")
-    private String publisher;
+        /** 저자 (필수) */
+        @NotBlank(message = "저자는 필수입니다.")
+        @Size(max = 100, message = "저자는 100자 이내여야 합니다.")
+        String author,
 
-    @NotBlank(message = "ISBN은 비어 있을 수 없습니다.")
-    private String isbn;
+        /** 출판사 (선택) */
+        @Size(max = 100, message = "출판사는 100자 이내여야 합니다.")
+        String publisher,
 
-    private String thumbnailUrl;
-}
+        /** 썸네일 URL (선택) */
+        String thumbnailUrl
+
+) {}

@@ -1,16 +1,16 @@
 package com.bookbookclub.bbc_post_service.feed.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Size;
 
 /**
  * 피드 수정 요청 DTO
  */
-@Getter
-@NoArgsConstructor
-public class FeedUpdateRequest {
+public record FeedUpdateRequest(
 
-    @NotBlank(message = "내용은 비어 있을 수 없습니다.")
-    private String content;
-}
+        /** 수정할 피드 내용 */
+        @NotBlank(message = "피드 내용은 공백일 수 없습니다.")
+        @Size(max = 1000, message = "피드 내용은 1000자 이내여야 합니다.")
+        String content
+
+) {}

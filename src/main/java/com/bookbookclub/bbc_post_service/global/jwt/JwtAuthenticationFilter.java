@@ -1,6 +1,6 @@
 package com.bookbookclub.bbc_post_service.global.jwt;
 
-import com.bookbookclub.bbc_post_service.global.security.CustomUserDetails;
+import com.bookbookclub.common.security.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

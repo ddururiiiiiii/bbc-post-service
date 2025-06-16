@@ -10,10 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 /**
- * 피드(Feed) 엔티티
- * - 사용자가 작성한 게시글 정보를 저장
- * - 작성자(User)와 다대일 관계
- * - 생성일, 수정일 자동 관리
+ * 피드(게시글) 엔티티
  */
 @Entity
 @Getter
@@ -29,14 +26,18 @@ public class Feed {
     @Column(nullable = false)
     private Long userId;
 
+    /** 책 ID */
     @Column(nullable = false)
     private Long bookId;
 
+    /** 피드 본문 내용 */
     @Column(nullable = false, length = 1000)
     private String content;
 
+    /** 피드 상태 */
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private boolean isBlinded = false;
+    private FeedStatus status = FeedStatus.ACTIVE;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -57,9 +58,23 @@ public class Feed {
      * 피드 블라인드 처리
      */
     public void blind() {
-        this.isBlinded = true;
+        this.status = FeedStatus.BLINDED;
     }
 
+    /**
+     * 피드 삭제 처리 (논리삭제)
+     */
+    public void delete() {
+        this.status = FeedStatus.DELETED;
+    }
+
+    /**
+     * 피드 복구 처리
+     * @return
+     */
+    public boolean isActive() {
+        return this.status == FeedStatus.ACTIVE;
+    }
     /**
      * 피드 생성 메서드
      */
@@ -68,7 +83,7 @@ public class Feed {
         feed.userId = userId;
         feed.bookId = bookId;
         feed.content = content;
-        feed.isBlinded = false;
+        feed.status = FeedStatus.ACTIVE;
         return feed;
     }
 

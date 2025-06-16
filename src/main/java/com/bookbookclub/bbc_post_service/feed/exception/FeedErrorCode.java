@@ -1,10 +1,13 @@
 package com.bookbookclub.bbc_post_service.feed.exception;
 
 import com.bookbookclub.common.exception.BaseErrorCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 피드 도메인 에러 코드 정의
  */
+@Getter
 public enum FeedErrorCode implements BaseErrorCode {
 
     FEED_NOT_FOUND(404, "F001", "피드를 찾을 수 없습니다."),
@@ -18,20 +21,5 @@ public enum FeedErrorCode implements BaseErrorCode {
         this.statusCode = statusCode;
         this.code = code;
         this.message = message;
-    }
-
-    @Override
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    @Override
-    public String getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

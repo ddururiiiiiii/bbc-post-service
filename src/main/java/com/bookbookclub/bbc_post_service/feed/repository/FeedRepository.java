@@ -2,22 +2,18 @@ package com.bookbookclub.bbc_post_service.feed.repository;
 
 
 import com.bookbookclub.bbc_post_service.feed.entity.Feed;
+import com.bookbookclub.bbc_post_service.feed.entity.FeedStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 피드 JPA 레포지토리
  */
 public interface FeedRepository extends JpaRepository<Feed, Long>, FeedRepositoryCustom {
 
-    /** 블라인드 되지 않은 피드 페이징 조회 */
-    Page<Feed> findByIsBlindedFalse(Pageable pageable);
-
-    /** 블라인드 되지 않은 피드 다건 조회 (id 리스트 기반) */
-    List<Feed> findByIdInAndIsBlindedFalse(List<Long> ids);
-
-    List<Feed> findByUserIdAndIsBlindedFalse(Long userId);
+    Optional<Feed> findByIdAndStatus(Long id, FeedStatus status);
 }

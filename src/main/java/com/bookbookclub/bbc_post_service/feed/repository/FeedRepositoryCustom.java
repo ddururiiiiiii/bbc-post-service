@@ -11,10 +11,7 @@ import java.util.List;
  */
 public interface FeedRepositoryCustom {
 
-    /** 키워드 검색 기반 피드 조회 */
-    List<Feed> searchFeeds(String keyword, Pageable pageable);
-
-    /** 특정 회원이 작성한 피드 목록 조회 */
-    List<Feed> findFeedsByUserId(Long userId, Pageable pageable);
+    List<Feed> findFeedsByUserIdAndCursorWithoutBlinded(Long lastFeedId, Long userId, int size);
+    List<Feed> findAllVisibleFeedsByCursor(Long lastFeedId, int size);
 
 }

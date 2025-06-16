@@ -39,11 +39,11 @@ public class Book {
 
     public static Book from(BookCreateRequest request) {
         Book book = new Book();
-        book.title = request.getTitle();
-        book.author = request.getAuthor();
-        book.publisher = request.getPublisher();
-        book.isbn = request.getIsbn();
-        book.thumbnailUrl = request.getThumbnailUrl();
+        book.title = request.title();
+        book.author = request.author();
+        book.publisher = request.publisher();
+        book.isbn = request.isbn();
+        book.thumbnailUrl = request.thumbnailUrl();
         return book;
     }
 
