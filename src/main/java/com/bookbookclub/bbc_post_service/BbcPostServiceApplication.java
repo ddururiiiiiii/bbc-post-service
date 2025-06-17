@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = "com.bookbookclub.bbc_post_service.global.client")
+@EnableFeignClients(basePackages = "com.bookbookclub.bbc_post_service.client")
 public class BbcPostServiceApplication {
 
 	public static void main(String[] args) {

@@ -35,22 +35,7 @@ public class JwtUtil {
     }
 
     public Long getUserId(String token) {
-        return getClaims(token).get("id", Long.class);
+        return getClaims(token).get("userId", Long.class);
     }
 
-    public String getEmail(String token) {
-        return getClaims(token).get("email", String.class);
-    }
-
-    public String getNickname(String token) {
-        return getClaims(token).get("nickname", String.class);
-    }
-
-    public String getProfileImageUrl(String token) {
-        return getClaims(token).get("profileImageUrl", String.class);
-    }
-
-    public String getRole(String token) {
-        return getClaims(token).get("role", String.class);
-    }
 }

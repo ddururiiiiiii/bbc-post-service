@@ -72,6 +72,9 @@ dependencies {
 
 	//kafka
 	implementation 'org.springframework.kafka:spring-kafka'
+	// Jackson (Kafka JSON 직렬화용)
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations'
 }
 
 // Q클래스가 생성될 위치 설정

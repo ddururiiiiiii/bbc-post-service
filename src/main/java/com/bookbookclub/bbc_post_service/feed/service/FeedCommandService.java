@@ -5,6 +5,7 @@ import com.bookbookclub.bbc_post_service.feed.entity.FeedStatus;
 import com.bookbookclub.bbc_post_service.feed.exception.FeedErrorCode;
 import com.bookbookclub.bbc_post_service.feed.exception.FeedException;
 import com.bookbookclub.bbc_post_service.feed.repository.FeedRepository;
+import com.bookbookclub.bbc_post_service.global.kafka.FeedEventProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class FeedCommandService {
 
     private final FeedRepository feedRepository;
+    private final FeedEventProducer feedEventProducer;
 
     /**
      * 피드 생성
      */
     public Long createFeed(Long userId, Long bookId, String content) {
         Feed feed = Feed.create(userId, bookId, content);
-        return feedRepository.save(feed).getId();
+        Feed savedFeed = feedRepository.save(feed);
+        feedEventProducer.sendFeedCreated(savedFeed);
+        return savedFeed.getId();
     }
 
     /**
