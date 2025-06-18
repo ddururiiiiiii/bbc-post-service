@@ -51,8 +51,9 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
-jwt:
-  secret: mybookbooksecretkeymybookbooksecretkey
+jwt: # mybookbooksecretkeymybookbooksecretkey
+  secret: bXlib29rYm9va3NlY3JldGtleW15Ym9va2Jvb2tzZWNyZXRrZXlteWJvb2tib29rc2VjcmV0a2V5
+
 
 bbc-user-service:
   url: http://localhost:8081  # 실제 유저 서비스 포트

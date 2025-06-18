@@ -24,10 +24,10 @@ public class FeedCommandController {
      * 피드 생성
      * */
     @PostMapping
-    public ResponseEntity<ApiResponse<Long>> create(@AuthenticationPrincipal CustomUserDetails userDetails,
+    public ResponseEntity<ApiResponse<Long>> create(@RequestHeader("X-USER-ID") Long userId,
                                                     @RequestBody FeedCreateRequest request) {
         Long feedId = feedCommandService.createFeed(
-                userDetails.getUserId(),
+                userId,
                 request.bookId(),
                 request.content()
         );
@@ -38,8 +38,8 @@ public class FeedCommandController {
      * 피드 수정
      * */
     @PatchMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> update(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestBody FeedUpdateRequest request) {
-        feedCommandService.updateFeed(userDetails.getUserId(), request.content());
+    public ResponseEntity<ApiResponse<Void>> update(@RequestHeader("X-USER-ID") Long userId, @RequestBody FeedUpdateRequest request) {
+        feedCommandService.updateFeed(userId, request.content());
         return ResponseEntity.ok(ApiResponse.success(null));
     }
 
@@ -47,8 +47,8 @@ public class FeedCommandController {
      * 피드 삭제
      * */
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        feedCommandService.deleteFeed(userDetails.getUserId());
+    public ResponseEntity<ApiResponse<Void>> delete(@RequestHeader("X-USER-ID") Long userId) {
+        feedCommandService.deleteFeed(userId);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
 

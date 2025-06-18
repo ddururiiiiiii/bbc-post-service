@@ -19,8 +19,8 @@ public class LikeController {
      */
     @PostMapping
     public ApiResponse<Void> like(@PathVariable Long feedId,
-                                  @AuthenticationPrincipal CustomUserDetails userDetails) {
-        likeService.like(userDetails.getUserId(), feedId);
+                                  @RequestHeader("X-USER-ID") Long userId) {
+        likeService.like(userId, feedId);
         return ApiResponse.success("좋아요가 등록되었습니다.");
     }
 
@@ -29,8 +29,8 @@ public class LikeController {
      */
     @DeleteMapping
     public ApiResponse<Void> unlike(@PathVariable Long feedId,
-                                    @AuthenticationPrincipal CustomUserDetails userDetails) {
-        likeService.unlike(userDetails.getUserId(), feedId);
+                                    @RequestHeader("X-USER-ID") Long userId) {
+        likeService.unlike(userId, feedId);
         return ApiResponse.success("좋아요가 취소되었습니다.");
     }
 

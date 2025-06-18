@@ -9,7 +9,10 @@ import java.security.Key;
 import java.util.Date;
 
 /**
- * JWT 관련 유틸리티 클래스
+ * JWT 생성 및 검증 유틸 클래스
+ * - 로그인 시 AccessToken / RefreshToken 생성
+ * - 토큰에서 사용자 정보 추출
+ * - 유효성 검사 및 만료 시간 계산 등 포함
  */
 @Component
 public class JwtUtil {
